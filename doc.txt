@@ -1,0 +1,6 @@
+
+
+... this is the list of links from where helps are obtained.
+... https://docs.openstack.org/install-guide/
+... https://docs.openstack.org//install-guide/InstallGuide.pdf
+... 
