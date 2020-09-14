@@ -1,0 +1,10 @@
+---
+# here we will install all packages to controller and compute
+- name: Install common software properties 
+  apt:
+    name: software-properties-common
+    state: latest
+
+- name: Install queens cloud-archive
+  apt_repository:
+    name: cloud-archives:queens
