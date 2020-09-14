@@ -1,0 +1,8 @@
+---
+- hosts: controller
+  become: yes
+  gather_facts: yes
+
+  tasks:
+  - name: Installing packages 
+    include: play/install_pkg.yml
