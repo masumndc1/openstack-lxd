@@ -1,0 +1,19 @@
+---
+- name: install mariadb and python-pymysql
+  apt:
+    name: [ 'mariadb-server', 'python-pymysql']
+    state: latest
+    update_cache: yes
+
+- name: Place mysql config file
+  template: 
+    src: template/mariadb.j2
+    dest: /etc/mysql/mariadb.conf.d/99-openstack.cnf
+  notify:
+    - Mysql service handler
+
+- name: Start mysql service
+  service:
+    name: mysql
+    state: started
+
