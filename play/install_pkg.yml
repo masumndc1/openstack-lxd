@@ -4,7 +4,9 @@
   apt:
     name: software-properties-common
     state: latest
+    update_cache: yes
 
 - name: Install queens cloud-archive
   apt_repository:
     name: cloud-archives:queens
+    update_cache: yes
