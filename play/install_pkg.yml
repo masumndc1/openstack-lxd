@@ -17,3 +17,15 @@
     name: python-openstackclient
     state: latest
     update_cache: yes
+
+- name: Install ansible repo for ubuntu
+  apt_repository:
+    repo: ppa:ansible/ansible
+    state: present
+    filename: ansible
+
+- name: Install ansible  ubuntu
+  apt:
+    name: ansible
+    state: latest
+    update_cache: yes
