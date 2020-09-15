@@ -12,12 +12,6 @@
     state: present
     filename: queens
 
-- name: Install python-openstack client 
-  apt:
-    name: python-openstackclient
-    state: latest
-    update_cache: yes
-
 - name: Install ansible repo for ubuntu
   apt_repository:
     repo: ppa:ansible/ansible
@@ -27,5 +21,11 @@
 - name: Install ansible  ubuntu
   apt:
     name: ansible
+    state: latest
+    update_cache: yes
+
+- name: Install python-openstack client 
+  apt:
+    name: python-openstackclient
     state: latest
     update_cache: yes
