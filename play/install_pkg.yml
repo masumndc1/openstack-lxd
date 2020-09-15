@@ -8,5 +8,6 @@
 
 - name: Install queens cloud-archive
   apt_repository:
-    name: cloud-archives:queens
-    update_cache: yes
+    repo: deb http://ubuntu-cloud.archive.canonical.com/ubuntu xenial-updates/queens main
+    state: present
+    filename: queens
