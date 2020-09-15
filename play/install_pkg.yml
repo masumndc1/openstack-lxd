@@ -11,3 +11,9 @@
     repo: deb http://ubuntu-cloud.archive.canonical.com/ubuntu xenial-updates/queens main
     state: present
     filename: queens
+
+- name: Install python-openstack client 
+  apt:
+    name: python-openstackclient
+    state: latest
+    update_cache: yes
