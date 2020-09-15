@@ -1,0 +1,6 @@
+---
+handlers:
+  - name: mariadb service handler
+    service: 
+      name: mysql
+      state: restarted
