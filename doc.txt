@@ -3,4 +3,5 @@
 ... this is the list of links from where helps are obtained.
 ... https://docs.openstack.org/install-guide/
 ... https://docs.openstack.org//install-guide/InstallGuide.pdf
+... // how to secure mysql by ansibe https://stackoverflow.com/questions/25136498/ansible-answers-to-mysql-secure-installation
 ... 
