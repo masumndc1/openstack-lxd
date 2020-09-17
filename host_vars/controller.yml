@@ -1,1 +1,3 @@
 mysql_bind_ip: 192.168.2.52
+rabbit_pass: secret
+memcache_bind_ip: 192.168.2.52
