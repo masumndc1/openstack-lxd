@@ -1,0 +1,11 @@
+---
+handlers:
+  - name: mariadb service handler
+    service: 
+      name: mysql
+      state: restarted
+
+  - name: memcache service handler
+    service: 
+      name: memcached 
+      state: restarted
