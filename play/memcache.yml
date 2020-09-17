@@ -2,5 +2,19 @@
 - name: Install memcache and configure it
   apt:
     name: ['memcached', 'python-memcache']
-    state: lates
+    state: latest
     update_cache: yes
+
+- name: Setting configure file for memcache
+  template:
+    src: template/memcached.conf.j2
+    dest: /etc/memcached.conf
+  notify:
+    - name: memcache service handler
+
+- name: Memcache service
+  service:
+    name: memcached
+    state: started
+    enabled: true
+
