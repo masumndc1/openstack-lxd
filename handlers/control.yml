@@ -9,3 +9,8 @@ handlers:
     service: 
       name: memcached 
       state: restarted
+
+  - name: etcd service handler
+    service: 
+      name: etcd 
+      state: restarted

@@ -6,13 +6,20 @@
   tasks:
   - name: Installing packages 
     include: play/install_pkg.yml
+    tags: pkgs
    
   - name: Mariadb and service
     include: play/mariadb.yml
+    tags: mariadb
   
   - name: Rabbimq installation and configuration
     include: play/rabbitmq.yml
+    tags: rabbitmq
 
   - name: Memcached install and configure
     include: play/memcache.yml
+    tags: memcached
 
+  - name: etcd install and configure
+    include: play/etcd.yml
+    tags: etcd
