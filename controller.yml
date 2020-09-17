@@ -9,3 +9,10 @@
    
   - name: Mariadb and service
     include: play/mariadb.yml
+  
+  - name: Rabbimq installation and configuration
+    include: play/rabbitmq.yml
+
+  - name: Memcached install and configure
+    include: play/memcache.yml
+
