@@ -1,0 +1,6 @@
+---
+- name: Install memcache and configure it
+  apt:
+    name: ['memcached', 'python-memcache']
+    state: lates
+    update_cache: yes

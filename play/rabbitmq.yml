@@ -1,0 +1,16 @@
+---
+- name: Install rabbitmq package
+  apt:
+    name: rabbitmq-server
+    state: latest
+    update_cache: yes
+
+- name: Setting rabbitmq user and granting access on / vhost
+  rabbitmq_user:
+    user: openstack
+    password: "{{ rabbit_pass }}"
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    state: present
