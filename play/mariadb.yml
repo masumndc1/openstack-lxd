@@ -12,6 +12,11 @@
   notify:
     - Mysql service handler
 
+- name: Place .my.conf file
+  template: 
+    src: template/my.conf.j2
+    dest: /root/.my.cnf
+
 - name: Start mysql service
   service:
     name: mysql
