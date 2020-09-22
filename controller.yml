@@ -23,3 +23,7 @@
   - name: etcd install and configure
     include: play/etcd.yml
     tags: etcd
+
+  - name: keystone configuration
+    include: play/keystone.yml
+    tags: keystone
