@@ -1,7 +1,7 @@
 ---
 - name: install mariadb and python-pymysql
   apt:
-    name: [ 'mariadb-server', 'python-pymysql']
+    name: [ 'mariadb-server', 'python-pymysql', 'python-mysqldb']
     state: latest
     update_cache: yes
 
@@ -12,9 +12,9 @@
   notify:
     - Mysql service handler
 
-- name: Place .my.conf file
+- name: Place .my.cnf file
   template: 
-    src: template/my.conf.j2
+    src: template/my.cnf.j2
     dest: /root/.my.cnf
 
 - name: Start mysql service
