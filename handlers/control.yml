@@ -14,3 +14,8 @@ handlers:
     service: 
       name: etcd 
       state: restarted
+
+  - name: apache2 service handler
+    service: 
+      name: apache2 
+      state: restarted
