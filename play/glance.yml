@@ -1,0 +1,46 @@
+---
+- name: Creating glance database
+  mysql_db:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    login_user: root
+    login_password: "{{ db_pass }}"
+    name: glance 
+    state: present
+  tags: glance_db
+
+- name: Creating and granting access of glance database to glance user
+  mysql_user:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: glance 
+    password: "{{ glance_pass }}"
+    priv: 'glance.*:ALL'
+    state: present
+  tags: glance_db
+     
+- name: Install glance package
+  apt:
+    name: glance
+    state: latest
+    update_cache: yes
+
+- name: Place glance-api.conf file
+  template:
+    src: template/glance-api.conf.j2
+    dest: /etc/glance/glance-api.conf
+#  notify:
+#    - glance service handler
+
+- name: Place glance-registry.conf file
+  template:
+    src: template/glance-registry.conf.j2
+    dest: /etc/glance/glance-registry.conf
+#  notify:
+#    - glance service handler
+
+- name: Restart glance related services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - glance-registry
+    - glance-api
