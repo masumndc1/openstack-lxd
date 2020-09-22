@@ -19,3 +19,11 @@ handlers:
     service: 
       name: apache2 
       state: restarted
+
+  - name: glance service handler
+    service: 
+      name: "{{ item }}" 
+      state: restarted
+    with_items:
+      - glance-api
+      - glance-registry
