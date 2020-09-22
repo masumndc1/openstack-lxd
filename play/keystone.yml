@@ -1,0 +1,54 @@
+---
+- name: Install python-pyasn1 
+  apt:
+    name: python-pyasn1
+    state: latest
+    update_cache: yes
+
+- name: Creating keystone database
+  mysql_db:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    login_user: root
+    login_password: "{{ db_pass }}"
+    name: keystone
+    state: present
+
+- name: Creating and granting access of keystone database to keystone user
+  mysql_user:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: keystone
+    password: "{{ keystone_pass }}"
+    priv: 'keystone.*:ALL'
+    state: present
+     
+- name: Install keystone packages
+  apt:
+    name: [ 'keystone', 'apache2', 'libapache2-mod-wsgi' ]
+    state: latest
+    update_cache: yes
+
+- name: Setting up connection in keystone.conf file
+  lineinfile:
+    path: /etc/keystone/keystone.conf
+    regexp: 'connection ='
+    line: 'connection = mysql+pymysql://keystone:{{ keystone_pass }}@controller/keystone'
+
+- name: Setting up token in keystone.conf file
+  lineinfile:
+    path: /etc/keystone/keystone.conf
+    regexp: 'provider ='
+    line: 'provider = fernet'
+
+- name: Apache2 service 
+  service:
+    name: apache2
+    state: stated
+    enabled: yes
+
+- name: Setting up ServerName in apache2.conf
+  lineinfile:
+    path: /etc/apache2/apache2.conf  
+    regexp: 'ServerName'
+    line: 'ServerName controller'
+  notify:
+    - apache2 service handler
