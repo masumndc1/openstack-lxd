@@ -29,4 +29,43 @@ keystone-manage bootstrap --bootstrap-password ADMIN_PASS \
 ```
 Replace ADMIN_PASS with a suitable password for an administrative user.
 
+## Glance
+1. Create glance database, glace db user and grant user access
+```
+ansible-playbook -i inventory/hosts controller.yml --tags glance_db
+```
+. Source the admin credentials to gain access to admin-only CLI commands
+
+```
+admin-openrc
+
+```
+. Create the glance user and give it admin role and create service project
+. Create the glance service entity and image service api endpoints.
+
+```
+$ openstack user create --domain default --password-prompt glance
+$ openstack role add --project service --user glance admin
+$ openstack service create --name glance \
+    --description "OpenStack Image" image
+$ openstack endpoint create --region RegionOne \
+    image public http://controller:9292
+$  openstack endpoint create --region RegionOne \
+    image internal http://controller:9292
+$ openstack endpoint create --region RegionOne \
+    image admin http://controller:9292
+```
+. Run again contoller.yml playbook to configure rest of glance related service
+```
+ansible-playbook -i inventory/hosts controller.yml --tags glance
+```
+. Populate the Image service database:
+```
+# su -s /bin/sh -c "glance-manage db_sync" glance
+```
+. Run one more time contoller.yml playbook.
+
+```
+ansible-playbook -i inventory/hosts controller.yml --tags glance
+```
 
