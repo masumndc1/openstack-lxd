@@ -27,3 +27,7 @@
   - name: keystone configuration
     include: play/keystone.yml
     tags: keystone
+
+  - name: glance configuration
+    include: play/glance.yml
+    tags: glance
