@@ -1,0 +1,45 @@
+---
+- name: Creating nova_api, nova, nova_cell0 databases
+  mysql_db:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    login_user: root
+    login_password: "{{ db_pass }}"
+    name:
+      - nova_api
+      - nova
+      - nova_cell0
+    state: present
+
+- name: Creating and granting access of nova user to nova databases
+  mysql_user:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: nova 
+    password: "{{ nova_pass }}"
+    priv: 'nova_api.*:ALL,nova.*:ALL,nova_cell0.*:ALL'
+    state: present
+     
+- name: Install nova packages
+  apt:
+    name: [ 'nova-api', 'nova-conductor', 
+            'nova-consoleauth', 'nova-novncproxy', 
+            'nova-scheduler', 'nova-placement-api' 
+          ]
+    state: latest
+    update_cache: yes
+
+- name: Placing nova.conf file
+  template:
+    src: template/nova.conf.j2
+    dest: /etc/nova/nova.conf
+
+- name: Restart nova services 
+  service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: yes
+  with_items:
+    - nova-api
+    - nova-consoleauth
+    - nova-scheduler
+    - nova-conductor
+    - nova-novncproxy
