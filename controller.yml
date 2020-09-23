@@ -31,3 +31,7 @@
   - name: glance configuration
     include: play/glance.yml
     tags: glance
+
+  - name: nova configuration
+    include: play/nova_cntrl.yml
+    tags: nova 
