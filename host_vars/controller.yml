@@ -5,4 +5,5 @@ ip: 192.168.2.52
 db_pass: secret
 keystone_pass: secret
 glance_pass: secret
+nova_pass: secret
 
